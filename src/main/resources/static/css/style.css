@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+.pm-header{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	
+	box-shadow: 2px 2px 5px 1px rgb(190, 190, 190);
+}
+
+.pm-logo{
+	height: 30px;
+}
+
+.pm-body{
+	margin-top: 55px;
+}
+
+.pm-btn{
+	background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    
+}
+
+.pm-search-bar{
+	border-radius: 30px;
+}
