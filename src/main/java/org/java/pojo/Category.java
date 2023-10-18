@@ -77,4 +77,10 @@ public class Category {
 		this.photos = photos;
 	}
 	
+	
+	@Override
+	public String toString() {
+		
+		return "Name: " + getName() + "\n";
+	}
 }
