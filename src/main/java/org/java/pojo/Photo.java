@@ -1,5 +1,8 @@
 package org.java.pojo;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -7,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Photo {
@@ -18,6 +23,7 @@ public class Photo {
 	
 	@Column
 	@Length(min = 3, max = 255, message = "il titolo deve avere un minimo di 3 caratteri ed un massimo di 255")
+	@NotNull
 	private String title;
 	
 	@Column
@@ -26,19 +32,25 @@ public class Photo {
 	
 	@Column
 	@Length(min = 3, max = 255, message = "Devi inserire anche la foto")
+	@NotNull
 	private String photoUrl;
 	
 	@Column
 	private boolean visible;
 	
+	@ManyToMany
+	private List<Category> categories;
+	
 	public Photo() {}
-	public Photo(String title, String description, String photoUrl, boolean visible ) {
+	public Photo(String title, String description, String photoUrl, boolean visible, Category ...categories ) {
 		
 		setDescription(description);
 		setId(id);
 		setPhotoUrl(photoUrl);
 		setTitle(title);
 		setVisible(visible);
+		setCategories(Arrays.asList(categories));
+		
 	}
 	
 	
@@ -80,6 +92,15 @@ public class Photo {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	
+	public List<Category> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+	
 	
 	@Override
 	public String toString() {
