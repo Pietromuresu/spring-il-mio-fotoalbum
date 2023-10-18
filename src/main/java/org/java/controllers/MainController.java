@@ -2,6 +2,7 @@ package org.java.controllers;
 
 import java.util.List;
 
+
 import org.java.pojo.Category;
 import org.java.pojo.Photo;
 import org.java.services.CategoryService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
@@ -35,6 +37,27 @@ public class MainController {
 		List<Photo> photos = photoServ.findAll();
 		
 		model.addAttribute("photos", photos);
+		
+		return "index";
+	}
+	
+	@RequestMapping("/name")
+	public String getByName(Model model, 
+							@RequestParam(required = false) String name) {
+		List<Photo> photos = null;
+		
+		String searched = name;
+		
+		if(name.isEmpty()) {
+			
+			photos = photoServ.findAll();
+		}else {
+			
+			photos = photoServ.findByTitle(name); 
+		}
+		
+		model.addAttribute("photos", photos);
+		model.addAttribute("searchedName", searched);
 		
 		return "index";
 	}
