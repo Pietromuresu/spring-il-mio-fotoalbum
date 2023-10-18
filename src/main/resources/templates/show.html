@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Detail page</title>
+
+<!--/* BOOTSTRAP */-->
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
+
+<!--/* STYLE */-->
+<link rel="stylesheet" th:href="@{/css/style.css}" >
+
+</head>
+<body th:object="${photo}">
+	<header
+	th:replace="~{frags/header :: header()}">
+	</header>
+			
+	<main>
+		<div class="container">
+			
+			<h1>[[*{title}]]</h1>
+			<a href="/add">Aggiungi</a>
+			<a th:href="| /update/*{id} |">Modifica</a>
+		</div>
+	</main>
+</body>
+</html>

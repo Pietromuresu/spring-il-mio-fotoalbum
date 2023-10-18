@@ -38,11 +38,23 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		Category cat4 = new Category("Bene", "Divertentissima");
 		categoryServ.save(cat4);
 		
-		Photo photo1 = new Photo("foto1", "Fotissima", "cccs", true, cat1, cat3);
+		Photo photo1 = new Photo("foto1", "Fotissima", "test.jpeg", true, cat1, cat3);
 		photoServ.save(photo1);
 
-		Photo photo2 = new Photo("foto2", "Fotissifma", "cccs", true, cat4, cat2);
+		Photo photo2 = new Photo("foto2", "Fotissifma", "test2.jpeg", true, cat4, cat2);
 		photoServ.save(photo2);
+		
+		Photo photo3 = new Photo("foto2", "Fotissifma", "test-vert.jpeg", true, cat4, cat2);
+		photoServ.save(photo3);
+		
+		Photo photo4 = new Photo("foto1", "Fotissima", "test.jpeg", true, cat1, cat3);
+		photoServ.save(photo4);
+		
+		Photo photo5 = new Photo("foto2", "Fotissifma", "test2.jpeg", true, cat4, cat2);
+		photoServ.save(photo5);
+		
+		Photo photo6 = new Photo("foto2", "Fotissifma", "test-vert.jpeg", true, cat4, cat2);
+		photoServ.save(photo6);
 		
 		List<Photo> trov = photoServ.findByTitle("foto");
 		

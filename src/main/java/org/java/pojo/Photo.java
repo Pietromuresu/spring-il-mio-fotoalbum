@@ -84,6 +84,10 @@ public class Photo {
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
 	}
+	public String getFullUrl() {
+		return "/imgs/" + getPhotoUrl();
+	}
+	
 	
 	
 	public boolean isVisible() {
@@ -101,6 +105,17 @@ public class Photo {
 		this.categories = categories;
 	}
 	
+	public boolean hasCategory(Category category) {
+		
+		if (getCategories() == null) return false;
+				
+			for ( Category cat : getCategories()) 
+				if (category.getId() == cat.getId())
+					return true;
+			
+		
+		return false;
+	}
 	
 	@Override
 	public String toString() {

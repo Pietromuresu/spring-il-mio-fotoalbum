@@ -6,11 +6,17 @@ a{
 	color: black;
 }
 
+main{
+	margin-top: 55px;
+}
+
 .pm-header{
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
+	background-color: white;
+	
 	
 	box-shadow: 2px 2px 5px 1px rgb(190, 190, 190);
 }
@@ -19,9 +25,7 @@ a{
 	height: 30px;
 }
 
-.pm-body{
-	margin-top: 55px;
-}
+
 
 .pm-btn{
 	background: none;
@@ -35,4 +39,46 @@ a{
 
 .pm-search-bar{
 	border-radius: 30px;
+}
+
+
+
+.pm-post-wrapper{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.pm-post-link{
+	display: block;
+}
+
+.pm-post{
+	position: relative;
+	height: 200px;
+	width: 250;
+	border-radius: 10px;
+	overflow: hidden;
+	margin: 7px;
+}
+
+.pm-post:hover>.pm-post-link{
+	display: flex;
+}
+
+.pm-photo{
+	object-fit: cover;
+}
+
+.pm-post-link{
+	display: none;
+	justify-content: end;
+	flex-direction: column-reverse;
+	padding: 5px;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(255, 255, 255, 0.1);
 }
