@@ -9,9 +9,14 @@ import org.java.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -55,6 +60,15 @@ public class MainController {
 		return "create";
 	}
 	
+	@PostMapping("/add")
+	public String store(Model model, 
+						@ModelAttribute @Valid Photo photo, 
+						BindingResult bindingResult
+						) {
+		return savePhoto(model, photo, bindingResult);
+		
+	}
+	
 	@GetMapping("/update/{id}")
 	public String update(Model model,@PathVariable Long id) {
 		
@@ -66,5 +80,43 @@ public class MainController {
 		model.addAttribute("categories", categories);
 		
 		return "create";
+	}
+	
+	@PostMapping("/update/{id}")
+	public String update( Model model, 
+						@ModelAttribute @Valid Photo photo, 
+						BindingResult bindingResult
+						) {
+		
+		return savePhoto(model, photo, bindingResult);
+	}
+	
+	@PostMapping("/delete/{id}")
+	public String deletePhoto(@PathVariable("id") Long id) {
+		
+		Photo photo = photoServ.findById(id).get();
+		
+		
+		photoServ.deleteById(id);
+
+		return "redirect:/";
+		
+	}
+	
+	
+	private String savePhoto(Model model, 
+			@ModelAttribute @Valid Photo photo, 
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			List<Category> categories = categoryServ.findAll();
+			model.addAttribute("categories", categories);
+			return "create";
+		} else {
+			
+			photoServ.save(photo);
+		}
+		
+		return "redirect:/";
 	}
 }

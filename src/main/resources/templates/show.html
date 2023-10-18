@@ -21,8 +21,21 @@
 		<div class="container">
 			
 			<h1>[[*{title}]]</h1>
-			<a href="/add">Aggiungi</a>
-			<a th:href="| /update/*{id} |">Modifica</a>
+			<div>
+						<img 
+						class=""
+						th:src="*{getFullUrl()}">
+					</div>
+			<p>
+				[[*{description}]]
+			</p>
+
+			<a class="btn btn-secondary" th:href="| /update/*{id} |">Modifica</a>
+			<form th:action="| /delete/*{id} |" method="POST">
+				<button type="submit">
+					 delete
+				</button>
+			</form>
 		</div>
 	</main>
 </body>
