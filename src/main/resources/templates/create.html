@@ -113,6 +113,30 @@
 					</ul>
 				</div>
 			</div>
+			<div class="form-group mt-4 form-check form-switch">
+				<label for="visible"  class="form-check-label">
+					<strong>
+						Visible
+					</Strong>
+				</label>
+				<input 
+					th:class="(${#fields.hasErrors('visible')} ? 'is-invalid form-check-input' : 'form-check-input ')"
+					type="checkbox" 
+					id="visible" 
+					role="switch" 
+					name="visible" 
+					placeholder="nome file"
+					th:field="*{visible}"
+				>
+				<div th:if="${#fields.hasErrors('visible')}">
+					<ul>
+					   <li
+					     th:each="err : ${#fields.errors('visible')}"
+					     th:text="${err}"
+					     class="text-danger"></li>
+					</ul>
+				</div>
+			</div>
 			<div class="form-group mt-4">
 				<label for="ingredients">
 					<strong>
