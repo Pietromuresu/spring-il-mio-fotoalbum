@@ -24,6 +24,19 @@ public class MessageController {
 	@Autowired
 	MessageService messageServ;
 	
+	@GetMapping
+	public String getAll(Model model){
+		
+		List<Message> messages = messageServ.findAll();
+		
+		model.addAttribute("messages",  messages);
+		
+		System.out.println(messages);
+		
+		return "messages";
+	}
+	
+	
 	@PostMapping("/send")
 	public String send(Model model,
 			@ModelAttribute @Valid Message message, 

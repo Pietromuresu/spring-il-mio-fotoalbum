@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Personal area</title>
+
+<!--/* BOOTSTRAP */-->
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
+
+<!--/* STYLE */-->
+<link rel="stylesheet" th:href="@{/css/style.css}" >
+</head>
+<body>
+
+	<header
+	th:replace="~{frags/header :: header()}">
+	</header>
+	<main>
+		
+		<div class="container w-50" >
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">Email</th>
+			      <th scope="col">Message</th>
+	
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr 
+			    th:each="message : ${messages}"
+				th:object="${message}">
+			      <td>[[*{email}]]</td>
+			      <td>[[*{text}]]</td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+	</main>
+</body>
+</html>

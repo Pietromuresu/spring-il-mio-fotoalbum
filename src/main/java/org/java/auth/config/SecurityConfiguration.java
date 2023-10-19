@@ -24,7 +24,7 @@ public class SecurityConfiguration {
 			.requestMatchers("/api/v1.0/**").permitAll()
 			.requestMatchers("/imgs/**").permitAll()
 			.requestMatchers("/name").permitAll()
-			.requestMatchers("/").permitAll()
+			.requestMatchers("/").hasAuthority("USER")
 			// MESSAGES
 			.requestMatchers("/message/**").permitAll()
 //			.requestMatchers("/api/v1.0/**").permitAll()
