@@ -1,5 +1,6 @@
 package org.java.pojo;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,8 +34,7 @@ public class Photo {
 	private String description;
 	
 	@Column
-	@Length(min = 3, max = 255, message = "Devi inserire anche la foto")
-	@NotNull
+	@Length( max = 255, message = "Devi inserire anche la foto")
 	private String photoUrl;
 	
 	@Column
@@ -43,6 +43,8 @@ public class Photo {
 	@ManyToMany
 	@JsonManagedReference
 	private List<Category> categories;
+
+	
 	
 	public Photo() {}
 	public Photo(String title, String description, String photoUrl, boolean visible, Category ...categories ) {

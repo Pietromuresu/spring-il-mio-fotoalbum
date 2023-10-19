@@ -1,5 +1,10 @@
 package org.java.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -17,6 +22,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 
@@ -86,8 +94,26 @@ public class MainController {
 	@PostMapping("/add")
 	public String store(Model model, 
 						@ModelAttribute @Valid Photo photo, 
+						@RequestParam("file") MultipartFile file,
 						BindingResult bindingResult
-						) {
+						)  {
+		 
+		try {
+			photo.setPhotoUrl(photoServ.getUniqueFileName(file));
+			photoServ.saveImg(file);
+			
+		}catch(MaxUploadSizeExceededException e) {
+			
+			model.addAttribute("error", "Si è verificato un errore durante il caricamento del file.");
+			
+			return "create";
+		}catch(IOException e) {
+			
+			model.addAttribute("error", "Si è verificato un errore durante il caricamento del file.");
+			
+			return "create";
+		}
+		
 		return savePhoto(model, photo, bindingResult);
 		
 	}
