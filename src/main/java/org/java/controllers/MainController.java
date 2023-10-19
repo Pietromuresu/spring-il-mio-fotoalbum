@@ -117,9 +117,6 @@ public class MainController {
 	@PostMapping("/delete/{id}")
 	public String deletePhoto(@PathVariable("id") Long id) {
 		
-		Photo photo = photoServ.findById(id).get();
-		
-		
 		photoServ.deleteById(id);
 
 		return "redirect:/";

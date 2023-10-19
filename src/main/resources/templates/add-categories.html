@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!--/* BOOTSTRAP */-->
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
+
+<!--/* STYLE */-->
+<link rel="stylesheet" th:href="@{/css/style.css}" >
+</head>
+<body>
+	<header
+	th:replace="~{frags/header :: header()}">
+	</header>
+	
+	<main class="container w-25 pt-4  " th:object="${category}">
+		<h1 th:if="${category.getId() > 0}">
+			Modify [[*{name}]]
+		</h1>
+		<h1 th:if="${category.getId() < 1}">
+			Add new category
+		</h1>
+		<form
+			
+			method="post">		
+		<!--*	<input type="hidden" 
+				th:name="${_csrf.parameterName}" 
+				th:value="${_csrf.token}" />	*-->
+			<label for="name">Nome</label>			
+			<input 
+				class="form-control h-75 mt-1"	
+				type="text"
+				id="name"
+				placeholder="Nome"
+				th:field="*{name}"
+			>
+			<label for="descritpion" class="mt-3">Descrizione</label>
+			<textarea 
+				class="form-control h-75 mt-1"	
+				type="text"
+				id="descritpion"
+				placeholder="Descrizione"
+				th:field="*{description}"
+			></textarea>
+			
+			<button class="btn btn-secondary btn-sm mt-3 ">
+				Save
+			</button>
+		</form>
+	</main>
+</body>
+</html>
