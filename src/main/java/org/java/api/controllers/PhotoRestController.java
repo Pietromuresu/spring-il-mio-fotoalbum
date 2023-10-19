@@ -2,14 +2,20 @@ package org.java.api.controllers;
 
 import java.util.List;
 
+
+import org.java.pojo.Message;
 import org.java.pojo.Photo;
+import org.java.pojo.dto.MessageDTO;
 import org.java.services.CategoryService;
+import org.java.services.MessageService;
 import org.java.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +32,9 @@ public class PhotoRestController {
 	@Autowired 
 	private CategoryService categoryServ;
 	
+	@Autowired
+	MessageService messageServ;
+	
 	@GetMapping("/photos/all")
 	public ResponseEntity<List<Photo>> index(@RequestParam(required = false, name = "title") String title){
 		
@@ -34,15 +43,29 @@ public class PhotoRestController {
 		
 		if(title != null) {
 			
-			photos = photoServ.findByTitle(title);
+			photos = photoServ.findByTitleAndVisible(title);
 		}else {
 		
-			photos = photoServ.findAll();
+			photos = photoServ.findVisible();
 		}
 		
 		
 		return new ResponseEntity<List<Photo>>(photos, HttpStatus.OK);
 		
+	}
+	
+	
+	@PostMapping("/message/send")
+	public ResponseEntity<Message> sendMessage(@RequestBody MessageDTO  messageDTO){
+		
+		
+		Message message = new Message(messageDTO);
+
+			
+		message = messageServ.save(message);
+		
+		
+		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
 	
 }

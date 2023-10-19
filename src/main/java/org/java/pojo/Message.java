@@ -2,6 +2,8 @@ package org.java.pojo;
 
 import org.hibernate.validator.constraints.Length;
 
+import org.java.pojo.dto.MessageDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -32,7 +34,11 @@ public class Message {
 		setText(text);
 		setEmail(email);
 	}
-	
+	public Message(MessageDTO messageDTO) {
+		setText(messageDTO.getText());
+		setEmail(messageDTO.getEmail());
+		
+	}
 	
 	public long getId() {
 		return Id;

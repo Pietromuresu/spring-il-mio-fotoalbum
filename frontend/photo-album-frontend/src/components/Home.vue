@@ -1,10 +1,8 @@
 <script setup>
 import MasonryWall from '@yeger/vue-masonry-wall'
 import { onMounted, ref } from "vue";
-import axios from 'axios';
+import store from "../stores/store"
 
-const API_URL = "http://localhost:8080/api/v1.0";
-const IMG_BASE_URL = "http://localhost:8080/imgs/";
 
 let photos = ref([]);
 
@@ -12,22 +10,8 @@ let photos = ref([]);
     MasonryWall;
   
 
-function getPhotos(name){
-    axios.get(API_URL + "/photos/all", {
-      params:{
-        title: name
-      }
-    })
-          .then(res => {
-            const data = res.data;
-            photos.value = data;
-          })
-          .catch(err => console.log(err));
-
-  }
-
 onMounted(() => {
-  getPhotos()
+  store.getPhotos()
 })
 
 const hello = ref("Hello")
@@ -36,7 +20,7 @@ const hello = ref("Hello")
 <template>
   <div class="container">
     <h1 class="py-3 text-center ">All photos</h1>
-    <MasonryWall :items="photos" :ssr-columns="5" :column-width="200"  :gap="10" >
+    <MasonryWall :items="store.photos.value" :ssr-columns="5" :column-width="200"  :gap="10" >
       <template  #default="{ item }" >
         <div th:each="photo : ${photos}" 
           class="pm-post" 
@@ -45,7 +29,7 @@ const hello = ref("Hello")
           <div>
             <img 
             class="pm-photo"
-            :src="IMG_BASE_URL + item.photoUrl">
+            :src="store.IMG_BASE_URL + item.photoUrl">
           </div>
           
           <a href="/" class="pm-post-link">

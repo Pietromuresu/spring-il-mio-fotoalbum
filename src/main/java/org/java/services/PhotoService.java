@@ -38,6 +38,14 @@ public class PhotoService {
 		photoRepo.deleteById(id);
 	}
 	
+	public List<Photo> findVisible() {
+		return photoRepo.findByVisibleTrue();
+	}
+	
+	public List<Photo> findByTitleAndVisible(String title) {
+		return photoRepo.findByTitleContainingAndVisibleTrue(title);
+	}
+	
 	public void updatePhoto(Photo photo) {
 		
 		Long id = photo.getId();
