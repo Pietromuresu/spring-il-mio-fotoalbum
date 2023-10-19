@@ -21,7 +21,12 @@
 	<main>	
 		<div class="container">
 			<h1>Album</h1>
-			<a class="btn btn-secondary" href="/add">Aggiungi</a>
+			<a 
+			class="btn btn-secondary" 
+			href="/add"
+			sec:authorize="hasAuthority('ADMIN')">
+				Aggiungi
+			</a>
 			<div class="pm-post-wrapper">
 				
 				<div th:each="photo : ${photos}" 

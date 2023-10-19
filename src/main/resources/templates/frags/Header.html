@@ -31,7 +31,8 @@
 			</a>
 			<a 
 				href="/categories" 
-				class="navbar-link ">
+				class="navbar-link "
+				sec:authorize="hasAuthority('ADMIN')">
 				Categories
 			</a>
 			
@@ -55,6 +56,21 @@
 			</a>
 
 		</div>
+			<form
+				class="ms-4"
+				method="POST"
+				action="/logout">
+				
+<!--*				<input type="hidden" 
+	    		  	th:name="${_csrf.parameterName}" 
+	    		  	th:value="${_csrf.token}"/>
+*-->				
+				<input 
+					class="btn btn-danger btn-sm"
+					type="submit" 
+					value="Logout"/>
+
+			</form>
 	  </div>
 	</header>
 

@@ -30,8 +30,17 @@
 				[[*{description}]]
 			</p>
 
-			<a class="btn btn-secondary" th:href="| /update/*{id} |">Modifica</a>
-			<form th:action="| /delete/*{id} |" method="POST" class="d-inline">
+			<a 
+			class="btn btn-secondary" 
+			th:href="| /update/*{id} |"
+			sec:authorize="hasAuthority('ADMIN')">
+				Modifica
+			</a>
+			<form 
+			th:action="| /delete/*{id} |" 
+			method="POST" 
+			class="d-inline"
+			sec:authorize="hasAuthority('ADMIN')">
 				<button class="btn btn-danger" type="submit">
 					 delete
 				</button>

@@ -2,6 +2,10 @@ package org.java;
 
 import java.util.List;
 
+import org.java.auth.pojo.User;
+import org.java.auth.pojo.Role;
+import org.java.auth.repositories.RoleRepo;
+import org.java.auth.repositories.UserRepo;
 import org.java.pojo.Category;
 import org.java.pojo.Photo;
 import org.java.services.CategoryService;
@@ -10,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
@@ -19,6 +24,13 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 
 	@Autowired
 	private CategoryService categoryServ;
+	
+	@Autowired
+	private UserRepo userRepo;
+	
+	@Autowired
+	private RoleRepo roleRepo;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIlMioFotoalbumApplication.class, args);
@@ -26,6 +38,25 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Role user = new Role("USER");
+		Role admin = new Role("ADMIN");
+		
+		roleRepo.save(user);
+		roleRepo.save(admin);
+		
+		
+		final String pwsAdmin = new BCryptPasswordEncoder().encode("123");
+		final String pwsUser = new BCryptPasswordEncoder().encode("123");
+		
+		User ceo = new User("pietroCeo", pwsAdmin, admin, user);
+		User associate = new User("associate", pwsUser, user);
+		
+		userRepo.save(ceo);
+		userRepo.save(associate);
+		
+		
+		
 		Category cat1 = new Category("Funny", "Divertentissima");
 		categoryServ.save(cat1);
 		
