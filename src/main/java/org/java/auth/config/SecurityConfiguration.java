@@ -21,6 +21,8 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests()
 	        // ADMIN AUTHORIZATION
 			// PIZZAS
+			.requestMatchers("/api/v1.0/**").permitAll()
+			.requestMatchers("/imgs/**").permitAll()
 			.requestMatchers("/name").permitAll()
 			.requestMatchers("/").permitAll()
 			// MESSAGES
