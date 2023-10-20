@@ -4,7 +4,9 @@ package org.java.controllers;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import org.java.auth.pojo.Role;
 import org.java.auth.pojo.User;
 import org.java.pojo.Category;
 import org.java.pojo.Photo;
@@ -47,9 +49,24 @@ public class MainController {
 		Object user = authentication.getPrincipal();
 		
 		List<Photo> photos = null;
+		// Se l'utente è SUPER-ADMIN gli faccio vedere tutte l foto presenti nel DB
 		if(user instanceof User) {
-
-			photos = photoServ.findByUser((User) user);
+			User userToUse = (User)user;
+			
+			Set<Role> roles = userToUse.getRoles();
+			
+			for(Role role : roles) {
+				
+				if(role.getName().equals("SUPER-ADMIN")) {
+					
+					photos = photoServ.findAll();
+				}else {
+					
+					photos = photoServ.findByUser( userToUse);
+				
+				}
+			}
+			
 		}else {
 			return "index";
 		}
@@ -69,9 +86,26 @@ public class MainController {
 		List<Photo> photos = null;
 		
 		String searched = name;
+		
+		// se l'utente è SUPER-ADMIN prendo tutti i post con il titolo cercato altrimenti prendo solo quelli dell'utente loggato
 		if(user instanceof User) {
 			
+			User userToUse = (User)user;
+			Set<Role> roles = userToUse.getRoles();
+			
+			for(Role role : roles) {
+				
+				if(role.getName().equals("SUPER-ADMIN")) {
+					
+					photos = photoServ.findByTitle(name);
+					model.addAttribute("photos", photos);
+					model.addAttribute("searchedName", searched);
+					
+					return "index";
+				}
+			}
 		
+			
 			if(name.isEmpty()) {
 				
 				photos = photoServ.findByUser((User) user);;
@@ -97,7 +131,20 @@ public class MainController {
 		
 		if(user instanceof User) {
 			// Se l'utente non è proprietario della foto si fa il redirect sulla index
-
+			User userToUse = (User)user;
+			Set<Role> roles = userToUse.getRoles();
+			
+			for(Role role : roles) {
+				
+				if(role.getName().equals("SUPER-ADMIN")) {
+					photo = photoServ.findById(id).get();
+					
+					model.addAttribute("photo", photo);
+					
+					return "show";
+				}
+			}
+			
 			Optional<Photo> photoOpt  = photoServ.findByUserAndId((User) user, id);
 			if(!photoOpt.isPresent()) {
 				return "redirect:/";
