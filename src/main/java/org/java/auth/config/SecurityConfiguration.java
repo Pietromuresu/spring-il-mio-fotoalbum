@@ -24,20 +24,21 @@ public class SecurityConfiguration {
 			.requestMatchers("/api/v1.0/**").permitAll()
 			.requestMatchers("/imgs/**").permitAll()
 			.requestMatchers("/name").permitAll()
-			.requestMatchers("/").hasAuthority("USER")
+			.requestMatchers("/").hasAnyAuthority("ADMIN", "SUPER-ADMIN")
+			
 			// MESSAGES
-			.requestMatchers("/message/**").permitAll()
-//			.requestMatchers("/api/v1.0/**").permitAll()
-//			.requestMatchers("/imgs/**").permitAll()
+			.requestMatchers("/message/send").permitAll()
+			.requestMatchers("/message").hasAuthority("ADMIN")
+
 			.requestMatchers("/post/**").permitAll()
 	        .requestMatchers("/add").hasAuthority("ADMIN")
-	        .requestMatchers("/update/**").hasAuthority("ADMIN")
+	        .requestMatchers("/update/**").hasAnyAuthority("ADMIN", "SUPER-ADMIN")
 	        .requestMatchers("/delete/**").hasAuthority("ADMIN")
 	        // CATEGORIES
 	        .requestMatchers("/categories/**").hasAuthority("ADMIN")
 	        .requestMatchers("/test/\\d").hasAnyAuthority("ADMIN")
-//	        // USER AUTHORIZATION
-	        .requestMatchers("/**").hasAuthority("USER")
+
+	        .requestMatchers("/**").hasAnyAuthority("ADMIN", "SUPER-ADMIN")
 	        .and().formLogin().defaultSuccessUrl("/")
 	        .and().logout();
 			 

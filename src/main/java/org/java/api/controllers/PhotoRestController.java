@@ -6,7 +6,6 @@ import java.util.List;
 import org.java.pojo.Message;
 import org.java.pojo.Photo;
 import org.java.pojo.dto.MessageDTO;
-import org.java.services.CategoryService;
 import org.java.services.MessageService;
 import org.java.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ public class PhotoRestController {
 	@Autowired
 	private PhotoService photoServ;
 	
-	@Autowired 
-	private CategoryService categoryServ;
 	
 	@Autowired
 	MessageService messageServ;

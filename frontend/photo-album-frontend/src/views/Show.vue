@@ -29,14 +29,14 @@ import Header from "../components/partials/Header.vue";
 <template>
   <RouterView>
       <Header />
-      <main >
-        <div  v-if="photo != null" class=" container pt-5 d-flex justify-content-center">
+      <main  v-if="photo != null" >
+        <h1 class="text-center p-4">Title: {{ photo.title }} </h1>
+        <div   class=" container pt-5 d-flex justify-content-center">
           <div class="pm-img-details">
             <img class="pm-img" :src="store.IMG_BASE_URL + photo.photoUrl" >
           </div>
           <div class="p-5">
-            <h5>Title: </h5>
-            <h6>{{ photo.title }}</h6>
+            
             
             <h5>Descrizione: </h5>
             <h6>{{ photo.description }}</h6>
@@ -58,5 +58,6 @@ import Header from "../components/partials/Header.vue";
 .pm-img-details>.pm-img{
   box-shadow: 0 0 5px ;
   object-fit:cover;
+  max-height: 500px;
 }
 </style>

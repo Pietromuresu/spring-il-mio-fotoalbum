@@ -1,9 +1,10 @@
 package org.java.auth.pojo;
 
-import java.util.Arrays;
+
 import java.util.Collection;
 import java.util.Set;
 
+import org.java.pojo.Photo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -33,6 +35,9 @@ public class User implements UserDetails{
 
 	@ManyToMany( fetch = FetchType.EAGER)
 	private Set<Role> roles;
+
+	@OneToMany
+	private Set<Photo> photos;
 	
 	
 	public User() {	};

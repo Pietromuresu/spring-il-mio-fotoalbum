@@ -12,12 +12,14 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" >
 
 </head>
-<body th:object="${photo}">
+<body >
 	<header
 	th:replace="~{frags/header :: header()}">
 	</header>
 			
-	<main>
+	<main 
+		th:if="${photo }"
+		th:object="${photo}" >
 		<div class="container">
 			
 			<h1>[[*{title}]]</h1>
@@ -33,7 +35,7 @@
 			<a 
 			class="btn btn-secondary" 
 			th:href="| /update/*{id} |"
-			sec:authorize="hasAuthority('ADMIN')">
+			sec:authorize="hasAnyAuthority('ADMIN')">
 				Modifica
 			</a>
 			<form 
@@ -44,6 +46,92 @@
 				<button class="btn btn-danger" type="submit">
 					 delete
 				</button>
+			</form>
+			
+			<form
+			method="POST"
+			enctype="multipart/form-data"
+			th:action="| /update/*{id} |"
+			sec:authorize="hasAuthority('SUPER-ADMIN')">
+				<input 
+					hidden
+					type="text" 
+					id="title" 
+					name="title" 
+					placeholder="Es. cane che balla..."
+					th:field="*{title}"
+				>
+				<input 
+					hidden
+					type="text" 
+					id="description" 
+					name="description" 
+					placeholder="Es. pomodoro, mozzarella, ..."
+					th:field="*{description}"
+				>
+				<input 
+					
+					type="hidden" 
+					id="photoUrl" 
+					name="photoUrl" 
+					placeholder="nome file"
+					th:value="${photo.getPhotoUrl()}"
+					th:field="*{photoUrl}"
+				>
+				<input 
+					hidden
+					th:class="(${#fields.hasErrors('photoUrl')} ? 'is-invalid form-control' : 'form-control ')"
+					type="file" 
+					id="file" 
+					name="file" 
+					max="1M"
+					placeholder="nome file"
+					
+				>
+				<div class="form-group mt-4 form-check form-switch">
+				<label for="visible"  class="form-check-label">
+					<strong>
+						Visible
+					</Strong>
+				</label>
+				<input 
+					th:class="(${#fields.hasErrors('visible')} ? 'is-invalid form-check-input' : 'form-check-input ')"
+					type="checkbox" 
+					id="visible" 
+					role="switch" 
+					name="visible" 
+					placeholder="nome file"
+					th:field="*{visible}"
+				>
+				<div th:if="${#fields.hasErrors('visible')}">
+					<ul>
+					   <li
+					     th:each="err : ${#fields.errors('visible')}"
+					     th:text="${err}"
+					     class="text-danger"></li>
+					</ul>
+				</div>
+				<ul class="d-none">
+					<li 
+					  th:each="cat : ${categories}"
+					>					
+						<input 
+							hidden
+							class="checkbox-control"
+							type="checkbox" 
+							th:id="| cat-${cat.id} |" 
+							name="| cat-${cat.id} |" 
+							th:value="${cat.id}"
+							th:field="*{categories}"
+							th:checked="${photo.hasCategory(cat)}" 
+						>
+						<label th:for="| cat-${cat.id} |">
+							[[${cat.name}]]	
+						</label>	
+					</li>				
+				</ul>
+			</div>
+			<button class="btn btn-sm btn-secondary ">Save</button>
 			</form>
 		</div>
 	</main>

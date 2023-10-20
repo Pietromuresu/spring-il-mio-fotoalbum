@@ -39,62 +39,67 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Role user = new Role("USER");
 		Role admin = new Role("ADMIN");
+		Role superAdmin = new Role("SUPER-ADMIN");
 		
-		roleRepo.save(user);
 		roleRepo.save(admin);
+		roleRepo.save(superAdmin);
 		
 		
 		final String pwsAdmin = new BCryptPasswordEncoder().encode("123");
-		final String pwsUser = new BCryptPasswordEncoder().encode("123");
+		final String pwsSuper = new BCryptPasswordEncoder().encode("123");
 		
-		User ceo = new User("pietroCeo", pwsAdmin, admin, user);
-		User associate = new User("associate", pwsUser, user);
+		User ceo = new User("pietroCeo", pwsAdmin, admin);
+		User user = new User("user", pwsAdmin, admin);
+		User god = new User("Super", pwsSuper, superAdmin);
+
 		
 		userRepo.save(ceo);
-		userRepo.save(associate);
+		userRepo.save(god);
+		userRepo.save(user);
 		
 		
 		
-		Category cat1 = new Category("Funny", "Divertentissima");
-		categoryServ.save(cat1);
+		Category paesaggi = new Category("Paesaggi", "Foto di paesaggi");
+		categoryServ.save(paesaggi);
 		
-		Category cat2 = new Category("Okd ", "Divertentissima");
-		categoryServ.save(cat2);
+		Category persone = new Category("Persone ", "foto di persone ");
+		categoryServ.save(persone);
 		
-		Category cat3 = new Category("Vad", "Divertentissima");
-		categoryServ.save(cat3);
+		Category posti = new Category("posti", "Foto di posti");
+		categoryServ.save(posti);
 		
-		Category cat4 = new Category("Bene", "Divertentissima");
-		categoryServ.save(cat4);
+		Category famosi = new Category("Famosi", "Foto di personaggi famosi");
+		categoryServ.save(famosi);
 		
-		Photo photo1 = new Photo("foto1", "Fotissima", "test.jpeg", true, cat1, cat3);
-		photoServ.save(photo1);
+		Category astratti = new Category("Astratti", "Foto di forme");
+		categoryServ.save(astratti);
+		
+		Photo beatles = new Photo("The Beatles", "Attraversano la strada", "beatles.jpeg", true, user, persone, famosi);
+		photoServ.save(beatles);
 
-		Photo photo2 = new Photo("foto2", "Fotissifma", "test2.jpeg", true, cat4, cat2);
-		photoServ.save(photo2);
+		Photo facciaCane = new Photo("Faccia di cane", "Donna con la faccia da cane", "faccia-cane.jpeg", true, ceo, persone, astratti);
+		photoServ.save(facciaCane);
 		
-		Photo photo3 = new Photo("foto2", "Fotissifma", "test-vert.jpeg", true, cat4, cat2);
-		photoServ.save(photo3);
+		Photo museum = new Photo("Museo", "Fotissifma", "museum.jpeg", true, ceo, persone, posti);
+		photoServ.save(museum);
 		
-		Photo photo4 = new Photo("foto1", "Fotissima", "test.jpeg", true, cat1, cat3);
-		photoServ.save(photo4);
+		Photo oldMe = new Photo("Old me", "Me da vecchio", "old-me.jpeg", true, ceo, persone);
+		photoServ.save(oldMe);
 		
-		Photo photo5 = new Photo("foto2", "Fotissifma", "test2.jpeg", true, cat4, cat2);
-		photoServ.save(photo5);
+		Photo youngBoy = new Photo("Young Boy", "Bambino ", "young-boy.jpeg", true, ceo, persone);
+		photoServ.save(youngBoy);
 		
-		Photo photo6 = new Photo("foto1", "Fotissima", "test-vert.jpeg", true, cat1, cat3);
-		photoServ.save(photo6);
+		Photo raffaella = new Photo("Raffaella Carrà", "Raffaella carrà in tv", "raffaella.webp", true, ceo, famosi, persone);
+		photoServ.save(raffaella);
 		
-		Photo photo8 = new Photo("foto2", "Fotissifma", "test2.jpeg", true, cat4, cat2);
-		photoServ.save(photo8);
+		Photo ungaretti = new Photo("Giuseppe ungaretti", "Ungaretti famoso scrittore in compagnia", "ungaretti.webp", true, ceo, famosi, persone);
+		photoServ.save(ungaretti);
+
+		Photo top = new Photo("Top model", "Donatella versace e delle top model", "top-model.webp", true, ceo, famosi, persone);
+		photoServ.save(top);
 		
-		Photo photo7 = new Photo("foto2", "Fotissifma", "test2.jpeg", true, cat4, cat2);
-		photoServ.save(photo7);
 		
-		Photo photo9 = new Photo("foto1", "Fotissima", "test.jpeg", true, cat1, cat3);
-		photoServ.save(photo9);
 		
 		
 		List<Photo> trov = photoServ.findByTitle("foto");

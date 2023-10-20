@@ -2,7 +2,6 @@ package org.java.controllers;
 
 import java.util.List;
 
-import org.java.pojo.Category;
 import org.java.pojo.Message;
 import org.java.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;

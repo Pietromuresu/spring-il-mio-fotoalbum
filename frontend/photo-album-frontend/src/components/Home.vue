@@ -28,7 +28,7 @@ onMounted(() => {
           class="pm-post" 
           :photo="item" >
           
-            <div>
+            <div class="pm-img-container">
               <img 
               class="pm-photo"
               :src="store.IMG_BASE_URL + item.photoUrl">
@@ -36,7 +36,12 @@ onMounted(() => {
             
             <a href="/" class="pm-post-link">
               <div class="pm-hover text-white">
-                {{ item.title }}
+                <h6>
+                  {{ item.title }}
+                </h6> 
+                <h6>
+                  @{{ item.user.username }}
+                </h6> 
               </div>
             </a>
           </div>	
@@ -59,9 +64,14 @@ a{
 	overflow: hidden;
 	margin: 7px;
   max-width: 250px;
+  max-height: 500px;
+  object-fit:contain;
   height: 100%;
 }
 
+.pm-img-container>img{
+  max-width: 400px;
+}
 .pm-post:hover>.pm-post-link{
 	display: flex;
 }

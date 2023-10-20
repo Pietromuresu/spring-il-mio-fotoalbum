@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.auth.pojo.User;
 import org.java.pojo.Photo;
 import org.java.repos.PhotoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,14 @@ public class PhotoService {
 		
 		return photoRepo.findAll();
 	}
+	public List<Photo> findByUser(User user) {
+		
+		return photoRepo.findByUser(user);
+	}
+	public List<Photo> findByUserAndTitle(User user, String title) {
+		
+		return photoRepo.findByUserAndTitle(user, title);
+	}
 	
 	public List<Photo> findByTitle(String title) {
 		
@@ -69,7 +78,18 @@ public class PhotoService {
 		return photoRepo.findById(id);
 	}
 	
+	public Optional<Photo> findByUserAndId(User user, Long id) {
+		
+		return photoRepo.findByUserAndId(user, id);
+	}
+	
 	public void deleteById(Long id) {
+		Photo photo = findById(id).get();
+		
+		String folder = "/Users/pietromuresu/Desktop/Experis - JAVA/Projects/spring-il-mio-fotoalbum/src/main/resources/static/imgs/";
+		File file = new File(folder + photo.getPhotoUrl());
+		file.delete();
+		
 		photoRepo.deleteById(id);
 	}
 	

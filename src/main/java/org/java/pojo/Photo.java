@@ -1,10 +1,11 @@
 package org.java.pojo;
 
-import java.io.File;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.java.auth.pojo.User;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -35,6 +37,7 @@ public class Photo {
 	
 	@Column
 	@Length( max = 255, message = "Devi inserire anche la foto")
+	@NotNull
 	private String photoUrl;
 	
 	@Column
@@ -44,10 +47,14 @@ public class Photo {
 	@JsonManagedReference
 	private List<Category> categories;
 
+	@ManyToOne
+	@JsonManagedReference
+	private User user;
+
 	
 	
 	public Photo() {}
-	public Photo(String title, String description, String photoUrl, boolean visible, Category ...categories ) {
+	public Photo(String title, String description, String photoUrl, boolean visible, User user, Category ...categories ) {
 		
 		setDescription(description);
 		setId(id);
@@ -55,6 +62,7 @@ public class Photo {
 		setTitle(title);
 		setVisible(visible);
 		setCategories(Arrays.asList(categories));
+		setUser(user);
 		
 	}
 	
@@ -120,6 +128,14 @@ public class Photo {
 			
 		
 		return false;
+	}
+	
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	@Override
