@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +52,17 @@ public class PhotoRestController {
 		
 		
 		return new ResponseEntity<List<Photo>>(photos, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/photos/{id}")
+	public ResponseEntity<Photo> index(@PathVariable Long id){
+		
+		
+		Photo photo = photoServ.findById(id).get();
+		
+		
+		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
 		
 	}
 	

@@ -2,7 +2,8 @@
 import MasonryWall from '@yeger/vue-masonry-wall'
 import { onMounted, ref } from "vue";
 import store from "../stores/store"
-
+import { RouterLink } from 'vue-router';
+import Show from '../views/Show.vue';
 
 let photos = ref([]);
 
@@ -14,30 +15,32 @@ onMounted(() => {
   store.getPhotos()
 })
 
-const hello = ref("Hello")
 </script>
 
 <template>
   <div class="container">
     <h1 class="py-3 text-center ">All photos</h1>
     <MasonryWall :items="store.photos.value" :ssr-columns="5" :column-width="200"  :gap="10" >
+      
       <template  #default="{ item }" >
-        <div th:each="photo : ${photos}" 
+        <router-link :to="{ name: 'show', params: { id: item.id } }" >
+          <div th:each="photo : ${photos}" 
           class="pm-post" 
-          th:object="${photo}" >
+          :photo="item" >
           
-          <div>
-            <img 
-            class="pm-photo"
-            :src="store.IMG_BASE_URL + item.photoUrl">
-          </div>
-          
-          <a href="/" class="pm-post-link">
-            <div class="pm-hover text-white">
-              {{ item.title }}
+            <div>
+              <img 
+              class="pm-photo"
+              :src="store.IMG_BASE_URL + item.photoUrl">
             </div>
-          </a>
-        </div>	
+            
+            <a href="/" class="pm-post-link">
+              <div class="pm-hover text-white">
+                {{ item.title }}
+              </div>
+            </a>
+          </div>	
+        </router-link>
       </template>
     </MasonryWall>
   
@@ -50,6 +53,7 @@ a{
 }
 
 .pm-post{
+  box-shadow: 0 0 5px black;
 	position: relative;
 	border-radius: 10px;
 	overflow: hidden;
