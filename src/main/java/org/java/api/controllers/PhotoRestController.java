@@ -2,7 +2,8 @@ package org.java.api.controllers;
 
 import java.util.List;
 
-
+import org.java.auth.pojo.User;
+import org.java.auth.services.UserService;
 import org.java.pojo.Message;
 import org.java.pojo.Photo;
 import org.java.pojo.dto.MessageDTO;
@@ -33,11 +34,28 @@ public class PhotoRestController {
 	@Autowired
 	MessageService messageServ;
 	
+	@Autowired
+	UserService userServ;
+	
+	
+	
+	@GetMapping("/users/all")
+	public ResponseEntity<List<User>> users(){
+		
+		
+		List<User> users = userServ.findAll();
+		
+		
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+		
+	}
+	
 	@GetMapping("/photos/all")
 	public ResponseEntity<List<Photo>> index(@RequestParam(required = false, name = "title") String title){
 		
-
+		
 		List<Photo> photos = null;
+		List<User> users = userServ.findAll();
 		
 		if(title != null) {
 			
@@ -70,6 +88,7 @@ public class PhotoRestController {
 		
 		Message message = new Message(messageDTO);
 
+		
 			
 		message = messageServ.save(message);
 		

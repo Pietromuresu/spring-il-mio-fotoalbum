@@ -22,6 +22,7 @@ public class SecurityConfiguration {
 	        // ADMIN AUTHORIZATION
 			// PIZZAS
 			.requestMatchers("/api/v1.0/**").permitAll()
+			.requestMatchers("/register").permitAll()
 			.requestMatchers("/imgs/**").permitAll()
 			.requestMatchers("/name").permitAll()
 			.requestMatchers("/").hasAnyAuthority("ADMIN", "SUPER-ADMIN")

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.java.pojo.Photo;
+import org.java.pojo.dto.UserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,6 +49,12 @@ public class User implements UserDetails{
 		 setUsername(username);
 		 setPassword(password);
 		 setRoles(Set.of(roles));
+	}
+	public User(UserDTO userDto, Role ...roles ) {	
+		
+		setUsername(userDto.getUsername());
+		setPassword(userDto.getPassword());
+		setRoles(Set.of(roles));
 	}
 
 	

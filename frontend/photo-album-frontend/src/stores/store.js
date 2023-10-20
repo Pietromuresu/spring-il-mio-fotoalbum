@@ -9,7 +9,6 @@ export default{
   categories : ref([]),
   searchedName: ref(""),
 
-
   getPhotos(name){
     axios.get(this.API_URL + "/photos/all", {
       params:{

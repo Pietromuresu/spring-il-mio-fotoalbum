@@ -17,10 +17,9 @@ import { ref } from 'vue';
     axios.post(store.API_URL + "/message/send", message.value)
           .then(res => {
             console.log(res);
-            message = ref({
-              text: null,
-              email: null
-            })
+            message.value.email = null;
+						message.value.text = null
+
           })
   }
 </script>
@@ -56,7 +55,7 @@ import { ref } from 'vue';
 										<form @submit.prevent="sendMessage()">
 											<div class="mb-3">
 												<label for="exampleInputEmail1" class="form-label">Email </label>
-												<input type="email" class="form-control" id="exampleInputEmail1" v-model="message.email" aria-describedby="emailHelp">
+												<input type="email" class="form-control" id="exampleInputEmail1" v-model="message.email" placeholder="example@gmail.com" aria-describedby="emailHelp">
 												<div id="emailHelp" class="form-text">Non condivideremo la tua mail con nessun altro</div>
 											</div>
 											<div class="mb-3">
@@ -69,7 +68,7 @@ import { ref } from 'vue';
 												></textarea>
 											</div>
 										
-											<button type="submit" class="btn btn-secondary" >Invia</button>
+											<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" >Invia</button>
 										</form>
 									</div>	
 								</div>

@@ -2,19 +2,24 @@ package org.java.controllers;
 
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.java.auth.pojo.Role;
 import org.java.auth.pojo.User;
+import org.java.auth.repositories.RoleRepo;
+import org.java.auth.services.UserService;
 import org.java.pojo.Category;
 import org.java.pojo.Photo;
+import org.java.pojo.dto.UserDTO;
 import org.java.services.CategoryService;
 import org.java.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +45,35 @@ public class MainController {
 	@Autowired
 	private CategoryService categoryServ; 
 	
+	@Autowired
+	private UserService userServ; 
+	
+	@Autowired
+	private RoleRepo roleRepo;
+	
+	@GetMapping("/register")
+	public String register(Model model) {
+		
+		User user = new User();
+		model.addAttribute("user", user);
+		
+		return "register";
+	}
+	@PostMapping("/register")
+	public String register(@ModelAttribute  UserDTO userDto) {
+		Role admin = roleRepo.findById(Long.valueOf(1)).get();
+		Role[] roles = {admin};
+		User user = new User(userDto, roles);
+		
+		try {
+			
+		userServ.save(user);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return "redirect:/";
+	}
 
 	
 	@GetMapping
