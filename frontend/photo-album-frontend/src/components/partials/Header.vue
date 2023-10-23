@@ -56,7 +56,7 @@
 				<div class="d-flex">
 					<modalMessage/>
 					<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<button class="btn btn-secondary btn-sm ms-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 								Login / Register
 							</button>
 							<ul class="dropdown-menu">

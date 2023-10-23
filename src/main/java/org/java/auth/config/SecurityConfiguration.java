@@ -22,11 +22,13 @@ public class SecurityConfiguration {
 	        // ADMIN AUTHORIZATION
 			// PIZZAS
 			.requestMatchers("/api/v1.0/**").permitAll()
-			.requestMatchers("/register").permitAll()
+			.requestMatchers("/register/**").permitAll()
 			.requestMatchers("/imgs/**").permitAll()
 			.requestMatchers("/name").permitAll()
 			.requestMatchers("/").hasAnyAuthority("ADMIN", "SUPER-ADMIN")
-			
+			// style
+			.requestMatchers("/css/style.css").permitAll()
+			.requestMatchers("/webjars/bootstrap/5.3.2/css/bootstrap.min.css").permitAll()
 			// MESSAGES
 			.requestMatchers("/message/send").permitAll()
 			.requestMatchers("/message").hasAuthority("ADMIN")

@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Login - Register</title>
+	<meta charset="UTF-8">
+	<title>Login - Register</title>
+
+	<!--/* BOOTSTRAP */-->
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
+
+	<!--/* STYLE */-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+
 </head>
 <body>
-<form name='f' action="/register" method='POST' th:object="${user}">
-    <table>
-       <tr>
-          <td>User:</td>
-          <td><input type='text' name='username' th:field="*{username}"></td>
-       </tr>
-       <tr>
-          <td>Password:</td>
-          <td><input type='password' name='password' th:field="*{password}" /></td>
-       </tr>
-       <tr>
-          <td><input name="submit" type="submit" value="submit" /></td>
-       </tr>
-    </table>
-</form>
+
+	<main>
+			<h1 class="text-secondary text-center mb-4">Registrati</h1>
+		<div class="container w-25 d-flex justify content center" th:object="${user}">
+			<form class="form-control" action="/register" method='POST' >
+				<div class="mb-3">
+			      <label for="username" class="form-label">User</label>
+			      <input class="form-control" type='text' name='username' th:field="*{username}">
+				</div>
+			
+			   	<div class="mb-3">
+			      <label class="form-label" for="password">Password:</label>
+			      <input id="password" class="form-control" type='password' name='password' th:field="*{password}" />
+				</div>
+				
+			      <button class="btn btn-secondary" name="submit" type="submit" value="submit" >Submit</button>
+			</form>
+		</div>
+	</main>
+
 </body>
 </html>

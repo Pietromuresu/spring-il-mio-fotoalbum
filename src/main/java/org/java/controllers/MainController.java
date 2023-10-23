@@ -59,6 +59,7 @@ public class MainController {
 		
 		return "register";
 	}
+	
 	@PostMapping("/register")
 	public String register(@ModelAttribute  UserDTO userDto) {
 		Role admin = roleRepo.findById(Long.valueOf(1)).get();
@@ -67,7 +68,7 @@ public class MainController {
 		
 		try {
 			
-		userServ.save(user);
+			userServ.save(user);
 		}catch(Exception e) {
 			System.out.println(e);
 		}
